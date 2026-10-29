@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Media remote</title><link rel="preload" href="/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/style.css"></head>
+<body class="nosel" data-tab="find" data-panel="add" data-tv="seasons" data-st="loading">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="brand"><span class="logo" aria-hidden="true"></span><b>Media remote</b></div>
+<button class="alrt" id="alrt" hidden></button>
+<div class="apps" id="apps" aria-label="App status"></div>
+<div class="refresh" aria-live="polite"><span class="ring" id="ring" aria-hidden="true"></span><span id="upd">Loading</span></div>
+<button class="ghost sm" id="srcb">Sources</button><button class="ghost sm" id="setb">Settings</button><button class="ghost sm" id="gear">Password</button><a class="lo" href="/logout">Log out</a></header>
+<dialog id="idx" aria-labelledby="ixh"><div class="ixw"><div class="ixt"><h3 id="ixh">Sources</h3><button type="button" class="ghost" id="ixx">Close</button></div>
+<p class="ixnote">Only add sources you have the legal right to use.</p>
+<div id="ixb" class="ixb"></div><p class="msg" id="ixm" role="status"></p></div></dialog>
+<dialog id="play" aria-labelledby="plh"><div class="plw" id="plw"><div class="plt"><h3 id="plh">Play</h3><button type="button" class="ghost" id="plfs">Full screen</button><a class="ghost plo" id="plo" target="_blank" rel="noopener">Open in Jellyfin</a><button type="button" class="ghost" id="plx">Close</button></div>
+<div class="plb" id="plb"></div><p class="plnote">Plays from your Jellyfin. Log in to Jellyfin here once.</p></div></dialog>
+<dialog id="set" class="ixd" aria-labelledby="seh"><div class="ixw"><div class="ixt"><h3 id="seh">Settings</h3><button type="button" class="ghost" id="sex">Close</button></div>
+<div class="seg sm" id="seapp" role="tablist" aria-label="App"><button role="tab" data-v="movie" aria-selected="true">Movies</button><button role="tab" data-v="tv" aria-selected="false">TV</button><button role="tab" data-v="sys" aria-selected="false">System</button></div>
+<div id="seb" class="ixb"></div><p class="msg" id="sem" role="status"></p></div></dialog>
+<dialog id="fix" class="ixd" aria-labelledby="fxh"><div class="ixw"><div class="ixt"><h3 id="fxh">Fix</h3><button type="button" class="ghost" id="fxx">Close</button></div>
+<div id="fxb" class="ixb"></div><p class="msg" id="fxm" role="status"></p></div></dialog>
+<dialog id="pwd"><form id="pf"><h3>Set my own password</h3>
+<label class="fld">Current password<input type="password" id="pc" autocomplete="current-password" required></label>
+<label class="fld">New password (10 or more characters)<input type="password" id="pn" autocomplete="new-password" minlength="10" required></label>
+<label class="fld">New password again<input type="password" id="pv" autocomplete="new-password" required></label>
+<p class="msg" id="pm"></p><div class="row2"><button type="button" class="ghost" id="px">Cancel</button><button class="primary">Save</button></div></form></dialog>
+<main id="main" class="grid">
+<section class="col c1" aria-labelledby="h1"><h2 id="h1"><span class="step">1</span>Find a title</h2>
+<div class="seg sm by" id="by" role="tablist" aria-label="Search by"><button role="tab" data-v="title" aria-selected="true">Title</button><button role="tab" data-v="actor" aria-selected="false">Actor</button><button role="tab" data-v="director" aria-selected="false">Director</button></div>
+<form class="search" id="sf"><label for="q" class="sr" id="ql">Search titles</label><input id="q" placeholder="Type a title" autocomplete="off"><button class="primary">Search</button></form>
+<div class="seg sm" id="scope" role="tablist" aria-label="Search scope"><button role="tab" data-v="all" aria-selected="true">Everything</button><button role="tab" data-v="tv" aria-selected="false">TV</button><button role="tab" data-v="movie" aria-selected="false">Movies</button><button role="tab" data-v="lib" aria-selected="false">My library</button></div>
+<p class="hint" id="rc">Search for a show or movie, or open My library.</p>
+<ul class="results box" id="res"></ul></section>
+
+<section class="col c2" aria-labelledby="h2"><h2 id="h2"><span class="step">2</span>Do something</h2>
+<div class="pick none" id="pk">Nothing picked yet. Find a title first.</div>
+<div class="seg act" id="act" role="tablist" aria-label="Action"><button role="tab" data-v="add" aria-selected="true">Add</button><button role="tab" data-v="sched" aria-selected="false">Schedule</button><button role="tab" data-v="remove" aria-selected="false">Remove</button></div>
+<p class="hint ah" id="ah">Add: put it in your library as wanted.</p>
+<p class="msg" id="msg" role="alert"></p>
+<div class="panel p-add">
+ <div class="work">
+  <div class="tvonly">
+  <div class="seg sm tv" id="tvseg" role="tablist" aria-label="Which episodes"><button role="tab" data-v="all" aria-selected="false">All</button><button role="tab" data-v="seasons" aria-selected="true">Seasons</button><button role="tab" data-v="episodes" aria-selected="false">Episodes</button></div>
+  <p class="hint" id="tvh">Seasons: tap season numbers or type a range.</p>
+  <div class="tv-all-v"><label class="fld fa">Which episodes<select id="mon"><option value="all">All episodes</option><option value="future">New episodes only</option><option value="latestSeason">Latest season</option><option value="firstSeason">First season</option><option value="none">None for now</option></select></label>
+  <label class="fld fs">Which episodes<select id="smode"><option value="future">New episodes only</option><option value="all">All episodes</option><option value="missing">Only missing episodes</option><option value="latestSeason">Latest season</option><option value="none">Stop watching for episodes</option></select></label></div>
+  <div class="quick" role="group" aria-label="Quick pick"><button class="qb" id="qAll" aria-pressed="false">All</button><button class="qb" id="qNone" aria-pressed="false">None</button><button class="qb" id="qLat" aria-pressed="false">Latest</button>
+   <div class="range" role="group" aria-label="Season range"><span class="rl">Seasons</span><label class="sr" for="rfrom">From season</label><input id="rfrom" type="number" min="1" inputmode="numeric"><span>to</span><label class="sr" for="rto">To season</label><input id="rto" type="number" min="1" inputmode="numeric"></div></div>
+  <div class="sgrid" id="sg"><ul class="tiles" id="tiles" role="group" aria-label="Seasons. Arrow keys move, Space picks, Shift with arrows picks a range."></ul></div>
+  <div class="acc" id="acc" aria-label="Episodes by season"></div>
+  <div class="newrow" id="noR"><label class="chk"><input type="checkbox" id="newonly" aria-describedby="nh"> <span>New episodes only <small class="hint" id="nh">Skip what already aired.</small></span></label></div>
+  </div>
+  <button class="opt" id="optb" aria-expanded="false" aria-controls="sheet"><b>Options</b><span class="os" id="os"></span></button>
+  <div class="sheet" id="sheet" role="group" aria-labelledby="sht"><h3 id="sht">Options<button class="link" id="done">Done</button></h3>
+   <div class="two"><label class="fld">Quality<select id="qp" aria-describedby="qh"></select><small class="hint" id="qh">Picture quality. Higher uses more space.</small></label><label class="fld">Folder<select id="rf" aria-describedby="fh"></select><small class="hint" id="fh">Where files are saved.</small></label></div></div>
+ </div>
+ <div class="foot"><p class="res" id="res2" role="status"></p><div class="go"><label class="chk dn"><input type="checkbox" id="dnow" checked aria-describedby="dh"> <span><b>Download now</b><small class="hint" id="dh">Off: mark wanted, download later.</small></span></label><button class="primary big-btn" id="bAdd" disabled>Add</button></div></div>
+</div>
+
+<div class="panel p-remove"><div class="danger" role="alertdialog" aria-labelledby="dz" aria-describedby="dzp"><h3 id="dz">Remove?</h3>
+<p id="dzp">It leaves your library and stops looking for it. Files stay on the server.</p>
+<label class="chk dchk"><input type="checkbox" id="df"> <span><b>Also delete files</b><small class="hint" id="dfh"></small></span></label>
+<label class="fld">Type the title to confirm<input id="ct" autocomplete="off"></label>
+<p class="res" id="rres"></p><div class="row2"><button class="ghost" id="bCan">Cancel</button><button class="dbtn" id="bRem" disabled>Remove, keep files</button></div></div>
+<p class="hint">Esc or Cancel goes back. Nothing is removed until you press the red button.</p></div>
+
+<div class="panel p-success"><div class="ok" role="status"><span class="check" aria-hidden="true"></span><h3 id="okT">Added</h3><p id="okP"></p><ul id="okL"></ul><div class="row2" style="width:100%"><button class="ghost" id="bAnother">Pick another title</button><button class="primary" id="bSee">See downloads</button></div></div></div>
+</section>
+
+<section class="col c3" aria-labelledby="h3"><h2 id="h3"><span class="step">3</span>Status</h2>
+<div class="seg sm sv" id="sview" role="tablist" aria-label="Status or library"><button role="tab" data-v="st" aria-selected="true">Status</button><button role="tab" data-v="lib" aria-selected="false">Library</button></div>
+<div class="seg sm st5" id="stab" role="tablist" aria-label="Status view"><button role="tab" data-v="dl" aria-selected="true">Active <span class="n" id="nq" hidden></span></button><button role="tab" data-v="done" aria-selected="false">Done</button><button role="tab" data-v="wait" aria-selected="false">Waiting <span class="n" id="nw" hidden></span></button><button role="tab" data-v="up" aria-selected="false">Soon</button><button role="tab" data-v="hl" aria-selected="false">Health</button></div>
+<ul class="dl box" id="sl" aria-busy="true"><li style="border:0;background:none;padding:0"><div class="sk"></div><div class="sk"></div><div class="sk"></div></li></ul>
+<div class="space"><span>Your storage</span><div class="bar sm" role="progressbar" aria-label="Your storage used" aria-valuemin="0" aria-valuemax="100" id="spbar"><i id="spb" style="width:0"></i></div><span id="spt">-</span></div>
+<div class="pwm"><button class="ghost" style="flex:1" id="srcb2">Sources</button><button class="ghost" style="flex:1" id="setb2">Settings</button><button class="ghost" style="flex:1" id="gear2">Password</button><a class="ghost" style="flex:1;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:10px" href="/logout">Log out</a></div>
+</section>
+</main>
+<footer><a href="https://x.com/SnarfLab" target="_blank" rel="noopener">Made By @SnarfLab</a></footer>
+<nav class="tabs" aria-label="Sections"><button data-t="find" aria-current="page">1 Find</button><button data-t="do">2 Do</button><button data-t="status">3 Status <span class="n" id="nq2" hidden></span></button><button data-t="library">Library</button></nav>
+<script src="/app.js"></script>
+</body></html>

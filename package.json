@@ -1,0 +1,10 @@
+{
+  "name": "media-dashboard-template",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler pages deploy public"
+  },
+  "devDependencies": {
+    "wrangler": "^4.86.0"
+  }
+}

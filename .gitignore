@@ -1,0 +1,6 @@
+.secrets/
+.dev.vars
+node_modules/
+.wrangler/
+qa/
+*.bak*
